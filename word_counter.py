@@ -32,12 +32,12 @@ if __name__ == "__main__":
     # f.close()
 
     wordfreq = collections.Counter()
-    unwanted_chars = "-— .,_?!*1234567890[]\#:();”“"
     with open("gutenburg.txt","r",encoding = "UTF8") as f:
         line_data = f.readline()
         while line_data:
-            line = "".join([ c if c.isalpha() else " " for c in line_data ]).lower()
-            wordfreq.update(line.split())
+            words_in_line = re.split('[^a-zA-Z0-9]+', line_data)
+            words_in_line = ([ word.lower() for word in words_in_line ])
+            wordfreq.update(words_in_line)
             line_data = f.readline()
     
     with open("word_count.txt","w",encoding = "UTF8") as f:

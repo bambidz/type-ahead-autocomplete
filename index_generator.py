@@ -11,6 +11,9 @@ if __name__ == "__main__":
 
         while line:
             word, count = line.split(':')
+            if word == '':
+                line = f.readline()
+                continue
             for i in range(len(word)-1):    # word 자체는 prefix로 칠 필요 없음.
                 if word[:i+1] not in prefix_dict:
                     prefix_dict[word[:i+1]] = PriorityQueue(PQMAX)
