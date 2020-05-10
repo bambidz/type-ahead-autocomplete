@@ -14,5 +14,16 @@
             <input type="submit" value="Submit">
         </form>
     </div>
+
+    {% if recommend_list %}
+
+        {% for word in recommend_list %}
+
+            {{ word }}
+
+        {% endfor %}
+
+    {% endif %}
+    
 </div>
 {% endblock %}

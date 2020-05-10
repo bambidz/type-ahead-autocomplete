@@ -1,4 +1,4 @@
-.PHONY: clean system-packages python-packages install tests run all
+.PHONY: clean system-packages python-packages install test run all
   
 clean:
 		find . -type f -name '*.pyc' -delete
@@ -12,9 +12,9 @@ python-packages:
 
 install: system-packages python-packages
 
-tests:
+test:
 		#python3 manage.py test
-		python3 unittest/test.py
+		python3 tests/test.py
 
 run:
 		python3 app.py

@@ -32,6 +32,7 @@ if __name__ == "__main__":
                     pq.put((int(count),word))   # multiply -1 to count so that least can come first in priority queue.
 
             line = f.readline()
+        #end while
 
 
     with open(writefile,"w",encoding='UTF8') as f:
