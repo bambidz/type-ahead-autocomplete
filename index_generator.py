@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from queue import PriorityQueue
 import heapq
 
@@ -5,7 +7,11 @@ PQMAX = 5   # size of priority queue
 
 if __name__ == "__main__":
 
-    with open("word_count.txt","r",encoding='UTF8') as f:
+    data_folder = Path(os.path.dirname(__file__)) / "data"
+    readfile = data_folder / "word_count.txt"
+    writefile = data_folder / "prefix_dict.txt"
+
+    with open(readfile,"r",encoding='UTF8') as f:
         line = f.readline()
         prefix_dict = {}
 
@@ -28,7 +34,7 @@ if __name__ == "__main__":
             line = f.readline()
 
 
-    with open("prefix_dict.txt","w",encoding='UTF8') as f:
+    with open(writefile,"w",encoding='UTF8') as f:
 
         for key, pq in prefix_dict.items():
             f.write('%s: ' % key)

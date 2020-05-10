@@ -1,29 +1,35 @@
-
+from pathlib import Path
+import os
 
 if __name__ == "__main__":
 
-    f = open("prefix_dict.txt","r",encoding='UTF8')
-    content = f.read()
-    f.close()
+    data_folder = Path(os.path.dirname(__file__)) / "data"
+    readfile = data_folder / "prefix_dict.txt"
 
-    prefix_dict = {}
+    with open(readfile,"r",encoding='UTF8') as f:
+        content = f.read()
+        f.close()
 
-    lines = content.split('\n')
+        prefix_dict = {}
 
-    for line in lines:
+        lines = content.split('\n')
 
-        if line == "":
-            continue
+        for line in lines:
 
-        word_list = []
-        prefix, tmp_word_list = line.split(':')
-        word_list = tmp_word_list.split()
+            if line == "":
+                continue
 
-        prefix_dict[prefix] = word_list
+            word_list = []
+            prefix, tmp_word_list = line.split(':')
+            word_list = tmp_word_list.split()
 
-    while(1):
-        sp = input("Next prefix to search : ")  # input search prefix
-        if sp not in prefix_dict:
-            print("There is no such prefix!\n")
-            continue
-        print(str(prefix_dict[sp]))
+            prefix_dict[prefix] = word_list
+
+        while(1):
+            sp = input("Next prefix to search : ")  # input search prefix
+            if sp not in prefix_dict:
+                print("There is no such prefix!\n")
+                continue
+            if sp == "q!":  # quit
+                break
+            print(str(prefix_dict[sp]))
