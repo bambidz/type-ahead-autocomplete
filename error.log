@@ -1,0 +1,8 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 244-890-335
+INFO:werkzeug:127.0.0.1 - - [15/May/2020 12:01:31] "POST / HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [15/May/2020 12:01:45] "DELETE /admin/index/a HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "DELETE /admin/index/a HTTP/1.1" 500 None
+INFO:werkzeug:127.0.0.1 - - [15/May/2020 12:01:45] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [15/May/2020 12:01:47] "POST / HTTP/1.1" 200 -

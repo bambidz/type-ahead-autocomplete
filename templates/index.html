@@ -8,22 +8,38 @@
 <div class="content">
     <h1 style="text-align: center">Type-ahead Autocomplete</h1>
     
+    <h4>Search</h4>
     <div class="form">
         <form action="/" method="POST">
             <input type="text" name="content" id="content">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Search">
         </form>
     </div>
-
     {% if recommend_list %}
 
-        {% for word in recommend_list %}
+    {% for word in recommend_list %}
 
-            {{ word }}
+        {{ word }}
 
-        {% endfor %}
+    {% endfor %}
 
     {% endif %}
+
+    <br><br>
+    <h4>Update</h4>
+    <div class="form">
+        <form action="/" method="POST">
+            <h5>Prefix</h5>
+            <input type="text" name="prefix" id="prefix_id">
+            <h5>Word</h5>
+            <input type="text" name="word" id="word_id">
+            <br>
+            <input type="submit" value="Create" name="update">
+            <input type="submit" value="Delete" name="delete">
+        </form>
+    </div>
     
+
+
 </div>
 {% endblock %}

@@ -1,99 +1,101 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect,jsonify
 from pathlib import Path
+from collections import defaultdict
 import os
+import json
+import requests
+import logging
 
 app = Flask(__name__)
 
-###### DB
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-# db = SQLAlchemy(app)
-
-# class Todo(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     content = db.Column(db.String(200), nullable=False)
-#     date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-#     def __repr__(self):
-#         return '<Task %r>' % self.id
+PQMAX = 5
 
 data_folder = Path(os.path.dirname(__file__)) / "data"
-readfile = data_folder / "prefix_dict.txt"
+prefix_data = data_folder / "prefix_dict.json"
+global prefix_dict
+prefix_dict = defaultdict(list)
+
+#### read from local json file. change code to DB later on.
+with open(prefix_data,"r",encoding='UTF8') as json_file:
+    data = json.load(json_file)
+    prefix_dict.update(data)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    global prefix_dict
     if request.method == "POST":
+        if 'content' in request.form:
+            word_list = prefix_dict[request.form['content']]
+            
+            recommend_list = word_list
+            return render_template("index.html", recommend_list = recommend_list)
+        
+        if 'prefix' in request.form:
+            if 'update' in request.form:
+                url = request.base_url[:-1]+url_for('update',prefix = request.form['prefix'])
+                res = requests.post(url,json = {'word' :request.form['word']})
+            if 'delete' in request.form:
+                print("call delete")
+                url = request.base_url[:-1]+url_for('delete',prefix = request.form['prefix'])
+                res = requests.delete(url,json = {'word' :request.form['word']})
 
-        #### read from local txt file. change code to DB later on.
-        prefix_dict = {}
-        with open(readfile,"r",encoding='UTF8') as f:
-            content = f.read()
-            lines = content.split('\n')
-            for line in lines:
-                if line == "":
-                    continue
-                prefix, tmp_word_list = line.split(':')
-                word_list = tmp_word_list.split()
-                prefix_dict[prefix] = word_list
-
-        searched_prefix = request.form['content']
-        if searched_prefix not in prefix_dict:
             return render_template("index.html")
-            
-        recommend_list = prefix_dict[request.form['content']]
-
-        return render_template("index.html", recommend_list = recommend_list)
-            
 
     if request.method == "GET":
         return render_template("index.html")
+            
 
 
+@app.route('/search/<prefix>', methods=['GET'])
+def search(prefix):
+    global prefix_dict
+    recommend_list = prefix_dict[prefix]
+    return jsonify(recommend_list)
 
-# @app.route('/', methods=['POST', 'GET'])
-# def index():
-#     if request.method == 'POST':
-#         task_content = request.form['content']
-#         new_task = Todo(content=task_content)
-
-#         try:
-#             db.session.add(new_task)
-#             db.session.commit()
-#             return redirect('/')
-#         except:
-#             return 'There was an issue adding your task'
-
-#     else:
-#         tasks = Todo.query.order_by(Todo.date_created).all()
-#         return render_template('index.html', tasks=tasks)
+@app.route('/admin/index/reload', methods=['POST'])
+def reload():
+    global prefix_dict
+    with open(prefix_data,"r") as json_file:
+        data = json.load(json_file)
+        prefix_dict = data
+    resp = jsonify(success=True)
+    resp.status_code = 200
+    return resp
 
 
-# @app.route('/delete/<int:id>')
-# def delete(id):
-#     task_to_delete = Todo.query.get_or_404(id)
+@app.route('/admin/index/<prefix>', methods=['POST'])
+def update(prefix):
+    global prefix_dict
+    word = request.json['word']
+    # print("in the update func.")
+    if not word:
+        return jsonify(success=True,status_code=200)
 
-#     try:
-#         db.session.delete(task_to_delete)
-#         db.session.commit()
-#         return redirect('/')
-#     except:
-#         return 'There was a problem deleting that task'
+    prefix_dict[prefix].append(word)
 
-# @app.route('/update/<int:id>', methods=['GET', 'POST'])
-# def update(id):
-#     task = Todo.query.get_or_404(id)
+    with open(prefix_data,"w") as json_file:
+        json.dump(prefix_dict,json_file)
 
-#     if request.method == 'POST':
-#         task.content = request.form['content']
+    return jsonify(success=True)
 
-#         try:
-#             db.session.commit()
-#             return redirect('/')
-#         except:
-#             return 'There was an issue updating your task'
+@app.route('/admin/index/<prefix>', methods=['DELETE'])
+def delete(prefix):
+    global prefix_dict
+    word = request.json['word']
+    print("in the remove func.")
+    if not word:
+        return jsonify(success=True,status_code=200)
 
-#     else:
-#         return render_template('update.html', task=task)
+    if prefix in prefix_dict:
+        word_index = prefix_dict[prefix].index(word)
+        del prefix_dict[prefix][word_index]
+
+    with open(prefix_data,"w") as json_file:
+        json.dump(prefix_dict,json_file)
+
+    return jsonify(success=True)
 
 
 if __name__ == "__main__":
+    logging.basicConfig(filename='error.log',level=logging.DEBUG)
     app.run(debug=True)
