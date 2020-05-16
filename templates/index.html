@@ -39,7 +39,12 @@
         </form>
     </div>
     
+    {% if stat_list %}
 
+        <h5>number of header: {{ stat_list["header_size"] }}</h5>
+        <h5>size of index: {{ stat_list["index_size"] }} bytes</h5>
+
+    {% endif %}
 
 </div>
 {% endblock %}

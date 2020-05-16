@@ -13,9 +13,7 @@ python-packages:
 install: system-packages python-packages
 
 test:
-		#python3 manage.py test
-		python3 tests/test.py
-
+		python -m unittest discover tests
 run:
 		python3 app.py
 		#python manage.py run

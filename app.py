@@ -1,10 +1,12 @@
 from flask import Flask, render_template, url_for, request, redirect,jsonify
 from pathlib import Path
 from collections import defaultdict
+from sys import getsizeof
 import os
 import json
 import requests
 import logging
+#import pytest
 
 app = Flask(__name__)
 
@@ -23,12 +25,17 @@ with open(prefix_data,"r",encoding='UTF8') as json_file:
 @app.route('/', methods=['POST', 'GET'])
 def index():
     global prefix_dict
+    global stat_list
+    stat_list ={}
+    stat_list["header_size"] = len(prefix_dict.items())
+    stat_list["index_size"] = getsizeof(prefix_dict)
+
     if request.method == "POST":
         if 'content' in request.form:
             word_list = prefix_dict[request.form['content']]
             
             recommend_list = word_list
-            return render_template("index.html", recommend_list = recommend_list)
+            return render_template("index.html", recommend_list = recommend_list, stat_list = stat_list)
         
         if 'prefix' in request.form:
             if 'update' in request.form:
@@ -42,7 +49,7 @@ def index():
             return render_template("index.html")
 
     if request.method == "GET":
-        return render_template("index.html")
+        return render_template("index.html",stat_list=stat_list)
             
 
 
@@ -62,10 +69,17 @@ def reload():
     resp.status_code = 200
     return resp
 
+@app.route('/healthcheck', methods=['GET'])
+def healthcheck():
+    resp = jsonify(success=True)
+    resp.status_code = 200
+    return resp
+
 
 @app.route('/admin/index/<prefix>', methods=['POST'])
 def update(prefix):
     global prefix_dict
+    global stat_list
     word = request.json['word']
     # print("in the update func.")
     if not word:
@@ -76,11 +90,16 @@ def update(prefix):
     with open(prefix_data,"w") as json_file:
         json.dump(prefix_dict,json_file)
 
+    stat_list["header_size"] = len(prefix_dict.items())
+    stat_list["index_size"] = getsizeof(prefix_dict)
+
     return jsonify(success=True)
 
 @app.route('/admin/index/<prefix>', methods=['DELETE'])
 def delete(prefix):
     global prefix_dict
+    global stat_list
+
     word = request.json['word']
     print("in the remove func.")
     if not word:
@@ -92,6 +111,9 @@ def delete(prefix):
 
     with open(prefix_data,"w") as json_file:
         json.dump(prefix_dict,json_file)
+
+    stat_list["header_size"] = len(prefix_dict.items())
+    stat_list["index_size"] = getsizeof(prefix_dict)
 
     return jsonify(success=True)
 

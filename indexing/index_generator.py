@@ -6,11 +6,10 @@ import json
 
 PQMAX = 5   # size of priority queue
 
-if __name__ == "__main__":
+data_folder = Path(os.path.dirname(__file__)).parent / "data"
 
-    data_folder = Path(os.path.dirname(__file__)) / "data"
-    readfile = data_folder / "word_count.txt"
-    writefile = data_folder / "prefix_dict.json"
+def make_index(input_file):
+    readfile = data_folder / input_file
 
     with open(readfile,"r",encoding='UTF8') as f:
         line = f.readline()
@@ -40,9 +39,7 @@ if __name__ == "__main__":
             word_list = list(reversed(word_list))
             prefix_dict[key] = word_list
 
-
-    with open(writefile,"w") as json_file:
-        json.dump(prefix_dict,json_file)
+        return prefix_dict
 
         # for key, pq in prefix_dict.items():
 
@@ -55,3 +52,8 @@ if __name__ == "__main__":
 
         #     f.write('\n')
 
+if __name__ == "__main__":
+    prefix_dict = make_index("word_count.txt")
+    writefile = data_folder / "prefix_dict.json"
+    with open(writefile,"w") as json_file:
+        json.dump(prefix_dict,json_file)

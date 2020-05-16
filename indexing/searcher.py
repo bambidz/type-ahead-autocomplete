@@ -4,7 +4,7 @@ import json
 
 if __name__ == "__main__":
 
-    data_folder = Path(os.path.dirname(__file__)) / "data"
+    data_folder = Path(os.path.dirname(__file__)).parent / "data"
     readfile = data_folder / "prefix_dict.json"
 
     with open(readfile,"r") as json_file:

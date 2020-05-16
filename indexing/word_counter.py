@@ -6,11 +6,10 @@ import collections
 import os
 from pathlib import Path
 
-if __name__ == "__main__":
-    
-    data_folder = Path(os.path.dirname(__file__)) / "data"
-    print(data_folder)
-    readfile = data_folder / "gutenburg.txt"
+data_folder = Path(os.path.dirname(__file__)).parent / "data"
+
+def word_count(input_file):
+    readfile = data_folder / input_file
     wordfreq = collections.Counter()
     with open(readfile,"r",encoding = "UTF8") as f:
         line_data = f.readline()
@@ -20,9 +19,12 @@ if __name__ == "__main__":
             wordfreq.update(words_in_line)
             line_data = f.readline()
 
-    writefile = data_folder / "word_count.txt"    
+    return wordfreq
+
+if __name__ == "__main__":
+    
+    wordfreq = word_count("gutenburg.txt")
+    writefile = data_folder / "word_count.txt"
     with open(writefile,"w",encoding = "UTF8") as f:
         for key, value in wordfreq.items():
             f.write('%s:%s\n' % (key, value))
-
-

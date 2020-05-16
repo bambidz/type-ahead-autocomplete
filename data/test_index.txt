@@ -1,0 +1,8 @@
+alex:3
+aman:2
+anaconda:1
+abigail:1
+abo:1
+and:1
+as:1
+:10
