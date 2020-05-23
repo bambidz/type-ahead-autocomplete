@@ -1,8 +1,8 @@
 import unittest
 from indexing import word_counter
-from indexing import index_generator
+from indexing.index_generator import PrefixIndex
 
-class TestSum(unittest.TestCase):
+class TestIndex(unittest.TestCase):
 
     def test_word(self):
         wordfreq = word_counter.word_count("test_words.txt")
@@ -10,15 +10,15 @@ class TestSum(unittest.TestCase):
         self.assertEqual(test_answer, wordfreq)
 
     def test_sum_tuple(self):
-        prefix_dict = index_generator.make_index("test_index.txt")
-        #print(prefix_dict)
+        prefixIndex = PrefixIndex(pqsize = 5, readfile = "/home/bambidz/dev/type-ahead-autocomplete/data/test_index.txt")
+        prefixIndex.load()
         test_answer = {'a': ['as', 'alex', 'aman', 'and', 'anaconda'], 
         'al': ['alex'], 'ale': ['alex'], 'am': ['aman'], 'ama': ['aman'], 
         'an': ['and', 'anaconda'], 'ana': ['anaconda'], 'anac': ['anaconda'], 
         'anaco': ['anaconda'], 'anacon': ['anaconda'], 'anacond': ['anaconda'], 
         'ab': ['abo', 'abigail'], 'abi': ['abigail'], 'abig': ['abigail'], 
         'abiga': ['abigail'], 'abigai': ['abigail']}
-        self.assertEqual(test_answer, prefix_dict)
+        self.assertEqual(test_answer, prefixIndex.index)
 
 if __name__ == '__main__':
     unittest.main()
