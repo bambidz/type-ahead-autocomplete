@@ -15,8 +15,7 @@ install: system-packages python-packages
 test:
 		python -m unittest discover tests
 run:
-		python3 app.py
-		#python manage.py run
+		flask run
 
 all:
 		clean install tests run
