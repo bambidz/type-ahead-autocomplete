@@ -1,5 +1,6 @@
 import os
 import math
+import sys
 
 class ExSorter:
     
@@ -10,17 +11,24 @@ class ExSorter:
         self.split_num = math.ceil(os.stat(self.file).st_size/self.memory)
     
     def split(self):
-        with open(self.file,'r') as rf:
+        with open(self.file,mode = 'r') as rf:
             for i in range(self.split_num):
                 tmp_file = "_tmp"+str(i)
                 with open(tmp_file,'a') as wf:
-                    while os.stat(self.file).st_size<self.memory:
-                        wf.append(rf.readline())
+                    wrote=0
+                    # incase last line wrote will exceed memory
+                    while wrote<self.memory-100:  
+                        line = rf.readline()
+                        # \n is added in write.
+                        wrote += sys.getsizeof(line)+1
+                        wf.write(line)
+                        
 
     def delete_tmp(self):
         for i in range(self.split_num):
             tmp_file = "_tmp"+str(i)
-            os.remove(tmp_file)
+            if os.path.exists(tmp_file):
+                os.remove(tmp_file)
                         
 
         # statinfo = os.stat(fname)
@@ -28,5 +36,5 @@ class ExSorter:
 
 if __name__ == '__main__':
     exsort = ExSorter("randnums.txt",1024,1024*10)
+    exsort.delete_tmp()
     #exsort.split()
-    #exsort.delete_tmp()
