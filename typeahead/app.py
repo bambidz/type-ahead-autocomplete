@@ -1,16 +1,15 @@
 from flask import Flask, render_template, url_for, request, redirect, jsonify
 from pathlib import Path
-from indexing.index_generator import PrefixIndex
-from config import IndexConfig,ServerConfig
+from indexing.index_manager import PrefixIndex
+from typeahead import app
 import os
 import json
 import requests
 import logging
 import click
-#import pytest
 
-app = Flask(__name__)
-prefixIndex = PrefixIndex(**IndexConfig)
+prefixIndex = PrefixIndex()
+
 logging.basicConfig(filename='error.log',level=logging.DEBUG)
 
 # build the prefix dictionary from word_count.txt
@@ -24,8 +23,7 @@ def load():
 def index():
     if request.method == "POST":
         if 'content' in request.form:
-            word_list = prefixIndex.index[request.form['content']]
-            
+            word_list = prefixIndex.search(request.form['content'])
             recommend_list = word_list
             return render_template("index.html", recommend_list = recommend_list)
         
@@ -46,10 +44,9 @@ def index():
 ## when dictionary is returned, error happens. so jsonify was used
 @app.route('/search/<prefix>', methods=['GET'])
 def search(prefix):
-    recommend_list = prefixIndex.index[prefix]
-    return jsonify({prefix:recommend_list})
+    return jsonify({prefix:prefixIndex.search(prefix)})
 
-@app.route('/admin/index/reload', methods=['POST'])
+@app.route('/admin/index/reload', methods=['POST','GET'])
 def reload():
     prefixIndex.load()
     return jsonify(success = True)
@@ -66,7 +63,6 @@ def update(prefix):
     if not word:
         return jsonify(success = False, status_code = 503)
 
-    prefixIndex.index[prefix].append(word)
     prefixIndex.update({prefix:word})
 
     return jsonify(success = True)
@@ -79,14 +75,7 @@ def delete(prefix):
     if not word:
         return jsonify(success = False, status_code = 503)
 
-    if prefix in prefixIndex.index:
-        word_index = prefixIndex.index[prefix].index(word)
-        del prefixIndex.index[prefix][word_index]
-
     prefixIndex.delete({prefix:word})
 
     return jsonify(success = True)
 
-
-if __name__ == "__main__":
-    app.run(debug=True,**ServerConfig)

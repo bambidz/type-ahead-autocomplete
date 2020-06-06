@@ -1,6 +1,5 @@
 import unittest
-from config import TestServerConfig
-from app import app
+from typeahead.app import app
 
 class TestFlask(unittest.TestCase):
 
