@@ -73,7 +73,8 @@ class PrefixIndex:
         writefile = increment_version_folder / ("incremental" + str(self.increment_version))
         self.increment_version +=1
 
-        for prefix,word in updated_prefixes:
+        for prefix,word in updated_prefixes.items():
+            print(prefix, " ",word," updated!")
             self.index[prefix].append(word)
 
         with open(writefile,"w",encoding='UTF8') as json_file:
@@ -84,10 +85,10 @@ class PrefixIndex:
         Path(deleted_version_folder).mkdir(parents=True, exist_ok=True)
         writefile = deleted_version_folder / ("deleted" + str(self.increment_version))
 
-        for prefix,word in deleted_prefixes:
+        for prefix,word in deleted_prefixes.items():
             if word in self.index[prefix]:
                 self.index[prefix].remove(word)
-
+                print(prefix, " ",word," deleted!")
         self.delete_version +=1
         with open(writefile,"w",encoding='UTF8') as json_file:
             json.dump(deleted_prefixes,json_file)

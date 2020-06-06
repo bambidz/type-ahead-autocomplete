@@ -23,8 +23,7 @@ def load():
 def index():
     if request.method == "POST":
         if 'content' in request.form:
-            word_list = prefixIndex.search(request.form['content'])
-            recommend_list = word_list
+            recommend_list = prefixIndex.search(request.form['content'])
             return render_template("index.html", recommend_list = recommend_list)
         
         if 'prefix' in request.form:

@@ -385,3 +385,83 @@ INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 08:44:13] "POST / HTTP/1.1" 200 -
 INFO:werkzeug: * Debugger PIN: 241-006-981
 INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 08:44:56] "POST / HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 08:45:01] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 10:55:51] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 10:55:54] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 10:56:02] "POST / HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 10:58:28] "DELETE /admin/index/ㅁㅏ HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "DELETE /admin/index/%E3%85%81%E3%85%8F HTTP/1.1" 200 22
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 10:58:28] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 10:58:33] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:00:11] "GET /admin/index/reload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:00:16] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:00:20] "POST / HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:01:28] "POST /admin/index/ㅁㅏ HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "POST /admin/index/%E3%85%81%E3%85%8F HTTP/1.1" 200 22
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:01:28] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:01:33] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:02:43] "GET /admin/index/reload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:02:47] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:02:50] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:04:34] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:04:36] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:04:38] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:04:53] "GET /admin/index/reload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:05:00] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:05:02] "POST / HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:05:09] "DELETE /admin/index/a HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "DELETE /admin/index/a HTTP/1.1" 500 None
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:05:09] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:05:11] "POST / HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/typeahead/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/typeahead/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/indexing/index_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/indexing/index_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/indexing/index_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/indexing/index_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:09:31] "POST /admin/index/a HTTP/1.1" 500 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "POST /admin/index/a HTTP/1.1" 500 None
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:09:31] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:09:33] "POST / HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/indexing/index_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/indexing/index_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:10:22] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:10:31] "GET /admin/index/reload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:10:35] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:10:37] "POST / HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/bambidz/dev/type-ahead-autocomplete/indexing/index_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:11:31] "POST /admin/index/a HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "POST /admin/index/a HTTP/1.1" 200 22
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:11:31] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:11:33] "POST / HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:12:44] "DELETE /admin/index/a HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "DELETE /admin/index/a HTTP/1.1" 200 22
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:12:44] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:12:46] "POST / HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:14:39] "POST /admin/index/a HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:http://127.0.0.1:5000 "POST /admin/index/a HTTP/1.1" 200 22
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:14:39] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:14:41] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:25:43] "GET /admin/index/reload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:25:52] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:26:03] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:26:22] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:26:33] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:26:45] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:27:07] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jun/2020 11:27:20] "POST / HTTP/1.1" 200 -
